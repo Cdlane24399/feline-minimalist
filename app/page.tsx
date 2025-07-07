@@ -1,13 +1,20 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, lazy, Suspense } from 'react'
+import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
 import { Star, Truck, Shield, Gift, Palette } from 'lucide-react'
 import Header from '../components/Header'
-import Cart from '../components/Cart'
 import ProductCard from '../components/ProductCard'
 import FloatingCartButton from '../components/FloatingCartButton'
-import ProductModal from '../components/ProductModal'
+
+const Cart = dynamic(() => import('../components/Cart'), {
+  ssr: false,
+})
+
+const ProductModal = dynamic(() => import('../components/ProductModal'), {
+  ssr: false,
+})
 
 interface Product {
   id: string
@@ -158,21 +165,25 @@ export default function Home() {
       />
 
       {/* Cart */}
-      <Cart
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        items={cartItems}
-        onUpdateQuantity={updateQuantity}
-        onRemoveItem={removeFromCart}
-      />
+      <Suspense fallback={null}>
+        <Cart
+          isOpen={isCartOpen}
+          onClose={() => setIsCartOpen(false)}
+          items={cartItems}
+          onUpdateQuantity={updateQuantity}
+          onRemoveItem={removeFromCart}
+        />
+      </Suspense>
 
       {/* Product Modal */}
-      <ProductModal
-        product={selectedProduct}
-        isOpen={isProductModalOpen}
-        onClose={closeProductModal}
-        onAddToCart={addToCart}
-      />
+      <Suspense fallback={null}>
+        <ProductModal
+          product={selectedProduct}
+          isOpen={isProductModalOpen}
+          onClose={closeProductModal}
+          onAddToCart={addToCart}
+        />
+      </Suspense>
 
       {/* Hero Section */}
       <section id="home" className="pt-24 pb-16 lg:pt-32 lg:pb-24">
@@ -275,7 +286,7 @@ export default function Home() {
               Our Collection
             </h2>
             <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-              Each piece is thoughtfully designed to meet your cat's natural needs while 
+              Each piece is thoughtfully designed to meet your cat&apos;s natural needs while 
               maintaining the aesthetic integrity of your modern home.
             </p>
           </motion.div>
@@ -409,7 +420,7 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-neutral-600 mb-4 italic">
-                  "{testimonial.quote}"
+                  &ldquo;{testimonial.quote}&rdquo;
                 </p>
                 <p className="font-medium text-neutral-900">
                   {testimonial.author}

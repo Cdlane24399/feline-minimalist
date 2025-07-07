@@ -1,0 +1,10 @@
+# robots.txt for Feline Minimalist
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Sitemap location
+Sitemap: https://your-domain.com/sitemap.xml
