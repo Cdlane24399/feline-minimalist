@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #fafafa;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-neutral-800 text-white px-6 py-3 rounded-full font-medium transition-all duration-300 hover:bg-neutral-900 hover:shadow-lg hover:-translate-y-0.5;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-neutral-800 px-6 py-3 rounded-full font-medium border border-neutral-200 transition-all duration-300 hover:bg-neutral-50 hover:shadow-lg hover:-translate-y-0.5;
+  }
+  
+  .product-card {
+    @apply bg-white rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2;
+  }
+  
+  .section-padding {
+    @apply py-16 lg:py-24;
+  }
+}
